@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.location.LocationManager;
@@ -15,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.GeolocationPermissions;
@@ -22,6 +24,7 @@ import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -36,6 +39,7 @@ public class MainActivity extends Activity {
 
 
     WebView webView;
+    ProgressBar progressBar;
     MainActivity mainActivity ;
     private Context mContext;
     SensorManager sensorManager;
@@ -54,9 +58,7 @@ public class MainActivity extends Activity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         setContentView(R.layout.activity_main);
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.setCancelable(false);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
         webView = (WebView)findViewById(R.id.webview);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebChromeClient());
@@ -71,7 +73,7 @@ public class MainActivity extends Activity {
 
         webView.getSettings().setGeolocationDatabasePath(getFilesDir().getPath());
         mContext = this;
-        if (Build.VERSION.SDK_INT > 17) {
+        if (Build.VERSION.SDK_INT > 19) {
             webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         }
 
@@ -108,7 +110,22 @@ public class MainActivity extends Activity {
         webView.setWebViewClient(new WebViewClient(){
 
             @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                progressBar.setVisibility(View.VISIBLE);
+                setTitle("Loading...");
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                progressBar.setVisibility(View.GONE);
+                setTitle(view.getTitle());
+            }
+
+            @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
                 Log.i("MainActivity","Inside shouldOverride");
                 webView.loadUrl(url);
                 return true;
@@ -117,17 +134,7 @@ public class MainActivity extends Activity {
 
 
         });
-        final Context context = this;
         webView.setWebChromeClient(new WebChromeClient() {
-            //Progress dialog for loading
-            public void onProgressChanged(WebView view, int progress) {
-                if (progress < 100) {
-                    progressDialog.show();
-                }
-                if (progress == 100) {
-                    progressDialog.dismiss();
-                }
-            }
 
             public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
                 callback.invoke(origin, true, false);
