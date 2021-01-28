@@ -90,8 +90,6 @@ public class MainActivity extends Activity {
 
 
                 webView.loadUrl("https://digilogbook.000webhostapp.com/");
-
-
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1001);
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
