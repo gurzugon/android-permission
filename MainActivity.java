@@ -77,8 +77,6 @@ public class MainActivity extends Activity {
             webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
         }
 
-
-
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
