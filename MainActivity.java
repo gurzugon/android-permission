@@ -101,8 +101,7 @@ public class MainActivity extends Activity {
             showGPSDisabledAlertToUser();
 
         }
-
-
+        
         webView.setWebViewClient(new WebViewClient(){
 
             @Override
