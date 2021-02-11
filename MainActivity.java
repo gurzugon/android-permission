@@ -126,8 +126,6 @@ public class MainActivity extends Activity {
                 return true;
             }
 
-
-
         });
         webView.setWebChromeClient(new WebChromeClient() {
 
