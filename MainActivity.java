@@ -37,7 +37,6 @@ public class MainActivity extends Activity {
 
     private static final int REQUEST_FINE_LOCATION = 1;
 
-
     WebView webView;
     ProgressBar progressBar;
     MainActivity mainActivity ;
