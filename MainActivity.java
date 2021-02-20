@@ -186,7 +186,7 @@ public class MainActivity extends Activity {
 
                     // permission was granted
                     Log.i("MainActivity","User Allowed permissions");
-                    webView.loadUrl("https://digilogbook.000webhostapp.com/");
+                    webView.loadUrl("");
 
 
 
