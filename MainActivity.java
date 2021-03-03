@@ -164,7 +164,7 @@ public class MainActivity extends Activity {
                     ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
                             PackageManager.PERMISSION_GRANTED) {
 
-                webView.loadUrl("https://digilogbook.000webhostapp.com/");
+                webView.loadUrl("your URL");
 
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
