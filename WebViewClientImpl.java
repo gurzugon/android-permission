@@ -11,7 +11,6 @@ import android.widget.ProgressBar;
 
 
 public class WebViewClientImpl extends WebViewClient {
-
     private Activity activity = null;
     String ShowOrHideWebViewInitialUse = "show";
     private WebView webView = null;
